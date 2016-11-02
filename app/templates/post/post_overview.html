@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}A simple blog{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="twelve columns">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <span>{{message}}</span>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+    {% if posts %}
+        {% for post in posts %}
+        <div class="row">
+            <article class="twelve columns">
+                <a href="{{ url_for('.single_post', post_id=post.id) }}"><h1>{{ post.title }}</h1></a>
+                <div class="post-details">
+                    <span>Posted at: {{ post.post_date }}</span>
+                    {% if post.last_edit %}
+                        <br>
+                        <span>Last edit: {{ post.last_edit }}</span>
+                    {% endif %}
+                </div>
+                {{ post.text|safe|truncate(256, True) }}
+            </article>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>There are no posts</p>
+    {% endif %}
+
+    {% if session['logged_in'] %}
+        <a href="{{ url_for('admin.add_post') }}">Add a new post</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{post.title}}{% endblock %}
+
+{% block body %}
+<div class="row">
+    <article class="twelve columns">
+        <div>
+            <h1>{{ post.title }}</h1>
+            <span class="post-details">Posted at: {{ post.post_date }}</span>
+            {% if post.last_edit %}
+                <br>
+                <span>Last edit: {{ post.last_edit }}</span>
+            {% endif %}
+        </div>
+        {{ post.text|safe }}
+    </article>
+    {% if session['logged_in'] %}
+        <a href="{{ url_for('admin.update_post',
+                post_id=post.id) }}">
+            Update post</a>
+    {% endif %}
+    <a href="{{ url_for('home.index') }}">Home</a>
+</div>
+{% endblock %}

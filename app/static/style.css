@@ -1,0 +1,32 @@
+/*
+*	General styles
+*
+*	Menus
+*
+*	Forms
+*/
+
+
+/** General styles **/
+
+/** Menu **/
+nav {
+    margin-top: 3em;
+}
+
+/** Forms **/
+
+.input-post-title {
+    width: 100%;
+}
+
+.input-post-textarea {
+    width: 100%;
+    height: 50rem;
+}
+
+.post-details {
+    padding-bottom: 0.5em;
+    font-style: italic;
+    font-size: 1em;
+}

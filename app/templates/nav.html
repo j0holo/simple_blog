@@ -1,0 +1,13 @@
+<nav class="row">
+    <div class="eight columns">
+        <h1>A blog about anything</h1>
+    </div>
+    <div class="four columns">
+        {% if session['logged_in'] %}
+            <!-- <a href="{{url_for('admin.logout')}}">Logout</a> -->
+        {% else %}
+            <!-- <a href="{{url_for('admin.login')}}">Login</a> -->
+        {% endif %}
+    </div>
+</nav>
+<hr>
