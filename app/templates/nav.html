@@ -4,18 +4,11 @@
     </div>
 </div>
 
-<nav>
-    <div class="row">
-        <ul>
-            <li><a href="{{ url_for('home.index') }}">Home</a></li>
-            <li><a href="{{ url_for('post.posts') }}">Overview</a></li>
-            <li><a href="{{ url_for('home.about') }}">About</a></li>
-            {% if session['logged_in'] %}
-            <li><a href="{{url_for('admin.logout')}}">Logout</a></li>
-            {% else %}
-            <!-- <a href="{{url_for('admin.login')}}">Login</a> -->
-            {% endif %}
-        </ul>
-    </div>
+<nav class="row">
+    <ul>
+        <li class="four columns"><a href="{{ url_for('home.index') }}">Home</a></li>
+        <li class="four columns"><a href="{{ url_for('post.posts') }}">Overview</a></li>
+        <li class="four columns"><a href="{{ url_for('home.about') }}">About</a></li>
+    </ul>
 </nav>
 <hr>

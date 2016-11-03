@@ -1,17 +1,62 @@
 /*
 *	General styles
 *
-*	Menus
+*	Banner
+*
+*	Nav
 *
 *	Forms
+*
+*	Posts
 */
 
 
 /** General styles **/
 
-/** Menu **/
-nav {
-    margin-top: 3em;
+body {
+	font-size: 1.8em;
+	line-height: 1.65em;
+	background-color: #f1f1f1;
+}
+
+.overview thead {
+	font-weight: bold;
+}
+
+.float-right {
+	float: right;
+}
+
+/** Banner **/
+
+.banner {
+	display: block;
+	padding-top: 1em;
+	text-align: center;
+}
+
+/** Nav **/
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav ul li {
+	display: inline-block;
+}
+
+nav li a {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+	font-size: 175%;
+}
+
+nav li a:hover {
+	color: #4682b4;
 }
 
 /** Forms **/
@@ -25,8 +70,20 @@ nav {
     height: 50rem;
 }
 
+/** Posts **/
+
+article {
+	margin: auto;
+	padding: 0 1em;
+}
+
+article p {
+	margin-bottom: 2em;
+}
+
 .post-details {
-    padding-bottom: 0.5em;
-    font-style: italic;
-    font-size: 1em;
+	color: #444444;
+	margin-bottom: 0.5em;
+	font-style: italic;
+	font-size: 1em;
 }

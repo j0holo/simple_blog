@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, abort
 from ..models import Post, User, db
+from peewee import DoesNotExist
 
 blue = Blueprint('post', __name__)
 
@@ -10,7 +11,9 @@ def posts():
 
 @blue.route("/post/<int:post_id>")
 def single_post(post_id):
-	post = Post.get(Post.id == post_id and Post.visible == True)
-	if post:
-		return render_template("post/post.html", post=post)
-	return abort(404)
+	try:
+		post = Post.get((Post.id == post_id) & (Post.visible == True))
+	except DoesNotExist:
+		return abort(404)
+	return render_template("post/post.html", post=post)
+	
