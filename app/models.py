@@ -5,7 +5,7 @@ import bcrypt
 import time
 
 # TODO: Add more documentation to all files
-# FIXME: DATABASE const should be set in config.py
+# FIXME: DATABASE const should be set in config.py, setup_server.py still uses a string.
 DATABASE = None
 db = SqliteDatabase(DATABASE)
 
@@ -30,7 +30,7 @@ class Post(BaseModel):
     post_date = DateTimeField()
     last_edit = DateTimeField(null=True)
     # TODO: Add option to set visibility and implement an overview of all the posts
-    visible = BooleanField(default=True)
+    visible = BooleanField(default=False)
 
     @staticmethod
     def add_post(title, text):

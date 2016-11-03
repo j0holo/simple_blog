@@ -1,13 +1,21 @@
-<nav class="row">
-    <div class="eight columns">
-        <h1>A blog about anything</h1>
+<div class="row">
+    <div class="twelve columns">
+        <a class="banner" href="{{ url_for('home.index') }}"><h1>A blog about anything</h1></a>
     </div>
-    <div class="four columns">
-        {% if session['logged_in'] %}
-            <!-- <a href="{{url_for('admin.logout')}}">Logout</a> -->
-        {% else %}
+</div>
+
+<nav>
+    <div class="row">
+        <ul>
+            <li><a href="{{ url_for('home.index') }}">Home</a></li>
+            <li><a href="{{ url_for('post.posts') }}">Overview</a></li>
+            <li><a href="{{ url_for('home.about') }}">About</a></li>
+            {% if session['logged_in'] %}
+            <li><a href="{{url_for('admin.logout')}}">Logout</a></li>
+            {% else %}
             <!-- <a href="{{url_for('admin.login')}}">Login</a> -->
-        {% endif %}
+            {% endif %}
+        </ul>
     </div>
 </nav>
 <hr>

@@ -5,7 +5,7 @@ blue = Blueprint('home', __name__)
 
 @blue.route("/")
 def index():
-    posts = Post.select().order_by(Post.post_date.desc())
+    posts = Post.select().where(Post.visible == True).order_by(Post.post_date.desc())
     return render_template("home/index.html", posts=posts)
 
 @blue.route("/about")

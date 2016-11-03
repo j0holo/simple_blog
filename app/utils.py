@@ -1,4 +1,4 @@
-from flask import session, redirect, url_for
+from flask import session, redirect, url_for, abort
 from functools import wraps
 import markdown
 
@@ -6,8 +6,7 @@ def login_required(f):
     @wraps(f)
     def inner(*args, **kwargs):
         if not session.get('logged_in'):
-            # return redirect(url_for('admin.login'))
-            pass
+            return abort(404)
         return f(*args, **kwargs)
 
     return inner

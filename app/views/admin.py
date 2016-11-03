@@ -10,6 +10,12 @@ from ..utils import login_required, auth_user, logout_user, filter_markdown
 
 blue = Blueprint('admin', __name__, url_prefix='/admin')
 
+@blue.route("/overview")
+@login_required
+def posts():
+    posts = Post.select().order_by(Post.post_date.desc())
+    return render_template("admin/post_overview.html", posts=posts)
+
 @blue.route("/add", methods=['GET', 'POST'])
 @login_required
 def add_post():
@@ -54,7 +60,7 @@ def add_post():
                 text = filter_markdown(markdown)
                 if Post.add_post(title, text):
                     flash("Added post successfully")
-                    return redirect(url_for('post.posts'))
+                    return redirect(url_for('.posts'))
                 else:
                     return "The title already exist"
     else:
@@ -92,8 +98,7 @@ def update_post(post_id):
                 post.last_edit = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 post.save()
                 flash("Post was updated")
-                # TODO(j0holo): redirct to post overview
-                return redirect(url_for('post.single_post', post_id=post.id))
+                return redirect(url_for('.posts'))
 
     title = post.title
     markdown = html2text.html2text(post.text)
@@ -113,18 +118,27 @@ def delete_post(post_id):
 @blue.route("/visible/<int:post_id>")
 @login_required
 def switch_post_visibility(post_id):
-    # TODO: Enable function to switch
+    # TODO: Enable function to switch visiblity
     """Switch the visible boolean of the post object.
 
     Read the post.visible field form the post object and
     flip the value to change the visibility.
 
     :param post_id: id of the post object
-    :return: None
     """
-    pass
+    try:
+        post = Post.get(Post.id == post_id)
+    except Post.DoesNotExist:
+        abort(404)
+    if post.visible:
+        post.visible = False
+        post.save()
+    else:
+        post.visible = True
+        post.save()
+    return redirect(url_for('.posts'))
 
-@blue.route("/login/", methods=['GET', 'POST'])
+@blue.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -134,7 +148,7 @@ def login():
             user = User.get(User.email == email)
             auth_user(user)
             flash('You are now logged in')
-            return redirect(url_for('post.posts'))
+            return redirect(url_for('.posts'))
         else:
             flash('Username or password do not match!')
 

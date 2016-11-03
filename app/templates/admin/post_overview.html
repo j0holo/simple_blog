@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}A simple blog{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="twelve columns">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <span>{{message}}</span>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+    {% if posts %}
+        <div class="row">
+            <div class="twelve columns">
+            <table class="overview">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Title</td>
+                        <td>Posted at</td>
+                        <td>Last updated</td>
+                        <td>Visible</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for post in posts %}
+                    <tr>
+                        <td>{{ post.id }}</td>
+                        <td><a href="{{ url_for('post.single_post', post_id=post.id) }}"><h5>{{ post.title }}</h5></a></td>
+                        <td>{{ post.post_date }}</td>
+                        {% if post.last_edit %}
+                        <td>{{ post.last_edit }}</td>
+                        {% else %}
+                        <td>Not updated</td>
+                        {% endif %}
+                        <td>{{ post.visible }}</td>
+                        <td><a class="button" href="{{ url_for('.update_post', post_id=post.id) }}">Update</a></td>
+                        <td><a class="button" href="{{ url_for('.switch_post_visibility', post_id=post.id) }}">Visible</a></td>
+                        <td><button>Delete</button></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+    {% else %}
+        <p>There are no posts</p>
+    {% endif %}
+
+    {% if session['logged_in'] %}
+        <a href="{{ url_for('admin.add_post') }}">Add a new post</a>
+    {% endif %}
+{% endblock %}

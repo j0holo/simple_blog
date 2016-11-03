@@ -26,7 +26,7 @@
                         <span>Last edit: {{ post.last_edit }}</span>
                     {% endif %}
                 </div>
-                {{ post.text|safe }}
+                {{ post.text|safe|truncate(256, True) }}
             </article>
         </div>
         {% endfor %}
