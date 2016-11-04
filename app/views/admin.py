@@ -112,13 +112,17 @@ def update_post(post_id):
 @blue.route("/delete/<int:post_id>")
 @login_required
 def delete_post(post_id):
-    # TODO: Delete a post
-    pass
+    try:
+        post = Post.get(Post.id == post_id)
+        post.delete_instance()
+    except Post.DoesNotExist:
+        abort(404)
+
+    return redirect(url_for('.posts'))
 
 @blue.route("/visible/<int:post_id>")
 @login_required
 def switch_post_visibility(post_id):
-    # TODO: Enable function to switch visiblity
     """Switch the visible boolean of the post object.
 
     Read the post.visible field form the post object and
