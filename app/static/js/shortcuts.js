@@ -16,6 +16,7 @@ function insert_four_spaces(e) {
         textarea.selectionStart = cursorPos;
         textarea.selectionEnd = cursorPos;
         textarea.focus();
+        console.log("4 spaces")
     }
 }
 

@@ -48,7 +48,7 @@ def add_post():
             markdown = request.form['markdown_text']
             html = filter_markdown(markdown)
 
-            return render_template("admin/add_post.html",
+            return render_template("admin/post_editor.html",
                                    html=Markup(html),
                                    markdown=markdown,
                                    title=title)
@@ -64,7 +64,7 @@ def add_post():
                 else:
                     return "The title already exist"
     else:
-        return render_template("admin/add_post.html")
+        return render_template("admin/post_editor.html")
 
 @blue.route("/update/<int:post_id>", methods=['GET', 'POST'])
 @login_required
@@ -81,7 +81,7 @@ def update_post(post_id):
             title = request.form['title']
             markdown = request.form['markdown_text']
             html = filter_markdown(markdown)
-            return render_template("admin/update_post.html",
+            return render_template("admin/post_editor.html",
                                    title=title,
                                    markdown=markdown,
                                    html=Markup(html),
@@ -102,7 +102,7 @@ def update_post(post_id):
     title = post.title
     markdown = html2text.html2text(post.text)
     html = filter_markdown(markdown)
-    return render_template("admin/update_post.html",
+    return render_template("admin/post_editor.html",
                            title=title,
                            markdown=markdown,
                            html=Markup(html),
@@ -111,6 +111,10 @@ def update_post(post_id):
 @blue.route("/delete/<int:post_id>")
 @login_required
 def delete_post(post_id):
+    """Delete a post
+
+    :param post_id: id of the post object
+    """
     try:
         post = Post.get(Post.id == post_id)
         post.delete_instance()

@@ -8,6 +8,8 @@
 *	Forms
 *
 *	Posts
+*
+*	Tabs
 */
 
 
@@ -18,12 +20,26 @@ body {
 	line-height: 1.65em;
 }
 
+a {
+	color: #3498db;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #1A75B1;
+	text-decoration: underline;
+}
+
 .overview thead {
 	font-weight: bold;
 }
 
 .float-right {
 	float: right;
+}
+
+.float-left {
+	float: left;
 }
 
 /** Banner **/
@@ -54,10 +70,6 @@ nav li a {
 	font-size: 175%;
 }
 
-nav li a:hover {
-	color: #4682b4;
-}
-
 /** Forms **/
 
 .input-post-title {
@@ -85,4 +97,63 @@ article p {
 	margin-bottom: 0.5em;
 	font-style: italic;
 	font-size: 1em;
+}
+
+/** Tabs **/
+
+.tabs {
+    float: none;
+    list-style: none;
+}
+
+.tabs input[type=radio] {
+    display:none;
+}
+
+.tabs label {
+    display: block;
+    float: left;
+    color: #ccc;
+    font-size: 2em;
+    margin-right: 10px;
+    font-weight: normal;
+    text-decoration: none;
+    text-align: center;
+    line-height: 2;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.tabs label:hover {
+    color: #3498db;
+    border-bottom: 4px solid #3498db;
+}
+.tab-content {
+    display: none;
+    width: 100%;
+    float: left;
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+    }
+  50% {
+    transform: scale(1.01);
+    opacity: 0.5;
+    }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.tabs [id^="tab"]:checked + label {
+    border-bottom: 4px solid #3498db;
+    color: #3498db;
+}
+#tab1:checked ~ #tab-content1,
+#tab2:checked ~ #tab-content2 {
+    display: block;
 }

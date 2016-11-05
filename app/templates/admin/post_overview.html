@@ -23,7 +23,6 @@
                         <td>ID</td>
                         <td>Title</td>
                         <td>Posted at</td>
-                        <td>Last updated</td>
                         <td>Visible</td>
                         <td></td>
                         <td></td>
@@ -36,11 +35,6 @@
                         <td>{{ post.id }}</td>
                         <td><a href="{{ url_for('post.single_post', post_id=post.id) }}"><h5>{{ post.title }}</h5></a></td>
                         <td>{{ post.post_date }}</td>
-                        {% if post.last_edit %}
-                        <td>{{ post.last_edit }}</td>
-                        {% else %}
-                        <td>Not updated</td>
-                        {% endif %}
                         <td>{{ post.visible }}</td>
                         <td><a class="button" href="{{ url_for('.update_post', post_id=post.id) }}">Update</a></td>
                         <td><a class="button" href="{{ url_for('.switch_post_visibility', post_id=post.id) }}">Visible</a></td>

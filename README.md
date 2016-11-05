@@ -57,6 +57,15 @@ who created it of course i.e. *- John*.
 
 TODO: talk about the options/commands the setup_server.py has 
 
+## Issues
+
+In opera 12.10 (Ubuntu 16.04) the `Ctrl + Space` is a shortcut for the
+homepage this conflicts with shortcuts.js which uses `Ctrl + Space` to
+insert four spaces in the editor. To dissable this in Opera go to
+Settings -> Preferences -> Advanced -> Keyboard setup -> "your selected setup"
+and search for "Homepage" it will show you a couple of shortcuts to the
+homepage. Delete the `Ctrl + Space` shortcut to remove the shortcut.
+
 ## Contribute
 
 If you want to contribute to the project or have an issue, please create a

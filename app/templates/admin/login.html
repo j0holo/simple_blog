@@ -4,6 +4,7 @@
 
 {% block body %}
 <div class="row">
+    <div class="twelve columns">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
@@ -11,12 +12,16 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-
-    <form action="{{ url_for('admin.login') }}" class="form" method="post">
-        <div>{{ form.email(placeholder="Email address") }}</div>
-        <div>{{ form.password(placeholder="Password") }}</div>
-        <input class="primary-button" type="submit" name="login" value="Login">
-    </form>
-    <a href="{{ url_for('home.index') }}">Home</a>
+    </div>
+</div>
+<div class="row">
+    <div class="twelve columns">
+        <form action="{{ url_for('admin.login') }}" class="form" method="post">
+            <div>{{ form.email(placeholder="Email address") }}</div>
+            <div>{{ form.password(placeholder="Password") }}</div>
+            <input class="primary-button" type="submit" name="login" value="Login">
+        </form>
+        <a href="{{ url_for('home.index') }}">Home</a>
+    </div>
 </div>
 {% endblock %}
