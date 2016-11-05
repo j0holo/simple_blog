@@ -95,7 +95,6 @@ def update_post(post_id):
                 text = filter_markdown(markdown)
                 post.title = title
                 post.text = text
-                post.last_edit = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 post.save()
                 flash("Post was updated")
                 return redirect(url_for('.posts'))

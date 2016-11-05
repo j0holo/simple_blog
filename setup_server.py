@@ -1,4 +1,4 @@
-from models import create_tables, create_user, update_user, populate_tables, User, db
+from app.models import create_tables, create_user, update_user, populate_tables, User, db
 import click
 
 
@@ -65,5 +65,5 @@ def delete_user():
 cli = click.CommandCollection(sources=[dbcli, usercli])
 
 if __name__ == "__main__":
-    db.init("blog.db")
+    db.init('app/blog.db')
     cli()
