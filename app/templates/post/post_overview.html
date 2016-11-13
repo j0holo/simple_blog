@@ -32,8 +32,5 @@
     {% else %}
         <p>There are no posts</p>
     {% endif %}
-
-    {% if session['logged_in'] %}
-        <a href="{{ url_for('admin.add_post') }}">Add a new post</a>
-    {% endif %}
+    <a class="float-right" href="{{ url_for('home.index') }}">Home</a>
 {% endblock %}

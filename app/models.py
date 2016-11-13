@@ -29,7 +29,7 @@ class Post(BaseModel):
     """
     title = CharField(unique=True)
     text = CharField()
-    post_date = DateTimeField()
+    post_date = DateField()
     visible = BooleanField(default=False)
 
     @staticmethod
@@ -41,7 +41,9 @@ class Post(BaseModel):
         :return: a post object of None if the title already exist.
         """
         try:
-            return Post.create(title=title, text=text, post_date=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+            return Post.create(title=title,
+                               text=text,
+                               post_date=datetime.now().strftime('%Y-%m-%d'))
         except IntegrityError:
             return None
 
@@ -58,6 +60,7 @@ class Post(BaseModel):
             return True
         except Post.DoesNotExist:
             return False
+
 
 class Image(BaseModel):
     # TODO: Add Image class to create_tables
@@ -207,14 +210,15 @@ def delete_user(email):
 def populate_tables():
     """Fill database tables with demo data.
 
-     This function is used for testing only. The random text from seeder.py was generated
-     with http://randomtextgenerator.com/
+     This function is used for testing only. The random text from seeder.py
+     was generated with http://randomtextgenerator.com/
     """
     db.connect()
     User.add_user("invalid@invalid.com", "devpassword")
     Post.add_post(posts[0]['title'], posts[0]['text'])
 
-    # Sleep is used to give post a different time stamp that is also visible in the blog posts.
+    # Sleep is used to give post a different time stamp
+    # that is also visible in the blog posts.
     time.sleep(3)
     Post.add_post(posts[1]['title'], posts[1]['text'])
     db.close()
