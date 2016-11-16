@@ -10,11 +10,13 @@ from ..utils import login_required, auth_user, logout_user, filter_markdown
 
 blue = Blueprint('admin', __name__, url_prefix='/admin')
 
+
 @blue.route("/overview")
 @login_required
 def posts():
     posts = Post.select().order_by(Post.post_date.desc())
     return render_template("admin/post_overview.html", posts=posts)
+
 
 @blue.route("/add", methods=['GET', 'POST'])
 @login_required
@@ -48,7 +50,7 @@ def add_post():
             markdown = request.form['markdown_text']
             html = filter_markdown(markdown)
 
-            return render_template("admin/post_editor.html",
+            return render_template("admin/add_post.html",
                                    html=Markup(html),
                                    markdown=markdown,
                                    title=title)
@@ -64,7 +66,8 @@ def add_post():
                 else:
                     return "The title already exist"
     else:
-        return render_template("admin/post_editor.html")
+        return render_template("admin/add_post.html")
+
 
 @blue.route("/update/<int:post_id>", methods=['GET', 'POST'])
 @login_required
@@ -81,7 +84,7 @@ def update_post(post_id):
             title = request.form['title']
             markdown = request.form['markdown_text']
             html = filter_markdown(markdown)
-            return render_template("admin/post_editor.html",
+            return render_template("admin/update_post.html",
                                    title=title,
                                    markdown=markdown,
                                    html=Markup(html),
@@ -102,11 +105,12 @@ def update_post(post_id):
     title = post.title
     markdown = html2text.html2text(post.text)
     html = filter_markdown(markdown)
-    return render_template("admin/post_editor.html",
+    return render_template("admin/update_post.html",
                            title=title,
                            markdown=markdown,
                            html=Markup(html),
                            post_id=post.id)
+
 
 @blue.route("/delete/<int:post_id>")
 @login_required
@@ -122,6 +126,7 @@ def delete_post(post_id):
         abort(404)
 
     return redirect(url_for('.posts'))
+
 
 @blue.route("/visible/<int:post_id>")
 @login_required
@@ -144,6 +149,7 @@ def switch_post_visibility(post_id):
         post.visible = True
         post.save()
     return redirect(url_for('.posts'))
+
 
 @blue.route("/login", methods=['GET', 'POST'])
 def login():

@@ -57,6 +57,7 @@
 body {
 	font-size: 1.85em;
 	line-height: 1.7em;
+    color: #333333;
 }
 
 a {
@@ -129,7 +130,6 @@ article p {
 }
 
 .post-details {
-	color: #444444;
 	margin-bottom: 0.5em;
 	font-style: italic;
 	font-size: 1em;

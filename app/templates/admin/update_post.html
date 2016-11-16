@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block header_title %}Preview your Markdown{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="twelve columns">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <span>{{message}}</span>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
+
+<form action="{{ url_for('.update_post', post_id=post_id) }}" method="post">
+    <div class="row">
+        <div class="twelve columns">
+            <div class="tabs">
+
+                <input type="radio" checked name="tabs" id="tab1">
+                <label for="tab1">
+                    <span>Markdown</span>
+                </label>
+
+                <input type="radio" name="tabs" id="tab2">
+                <label for="tab2">
+                    <span>HTML</span>
+                </label>
+
+                <div id="tab-content1" class="tab-content">
+                    <input class="input-post-title" type="text" name="title" value="{{ title }}" required placeholder="Your title...">
+                    <textarea class="input-post-textarea" id="textarea"
+                        name="markdown_text" rows="30" cols="40"
+                        placeholder="Start writing your post..."
+                        required
+                        onkeypress="insert_four_spaces(event)">{% if markdown -%}{{ markdown }}{% endif -%}
+                    </textarea>
+                </div>
+
+                <div id="tab-content2" class="tab-content">
+                    {% if title %}
+                        <h1>{{ title }}</h1>
+                    {% endif %}
+                    {% if html %}
+                        <div class="markdown-preview">
+                            {{ html }}
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="twelve columns">
+            <input type="submit" name="submit" value="preview">
+            <input class="button-primary" type="submit" name="submit" value="post">
+        </div>
+    </div>
+</form>
+
+<a href="{{ url_for('.posts') }}">Post Overview</a>
+{% endblock %}
