@@ -55,8 +55,8 @@
 /** General styles **/
 
 body {
-	font-size: 1.8em;
-	line-height: 1.65em;
+	font-size: 1.85em;
+	line-height: 1.7em;
 }
 
 a {
@@ -124,7 +124,8 @@ article {
 }
 
 article p {
-	margin-bottom: 2em;
+    margin: 1.5em;
+    max-width: 40em;
 }
 
 .post-details {
