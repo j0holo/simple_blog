@@ -1,5 +1,7 @@
-from app.models import create_tables, create_user, update_user, populate_tables, User, db
 import click
+
+from app.models import create_tables, create_user, update_user, populate_tables, \
+    User, db
 
 
 @click.group()
@@ -12,7 +14,9 @@ def dbcli():
 @click.option('--populate', is_flag=True)
 def database(create, populate):
     if create:
-        click.confirm('Do you want to create new tables, this will destroy all data', abort=True)
+        click.confirm(
+            'Do you want to create new tables, this will destroy all data',
+            abort=True)
         if create_tables():
             click.echo("Tables have been created")
         else:
@@ -30,12 +34,14 @@ def usercli():
 def change_email():
     old_email = click.prompt('Enter your old email address')
     if not User.get(User.email == old_email):
-        click.echo('The email address {email} does not exist'.format(email=old_email))
+        click.echo(
+            'The email address {email} does not exist'.format(email=old_email))
     new_email = click.prompt('Enter your new email address')
-    click.confirm('You old email was {old_email}, your new email will be {new_email}'
-                  .format(old_email=old_email,
-                          new_email=new_email),
-                  abort=True)
+    click.confirm(
+        'You old email was {old_email}, your new email will be {new_email}'
+        .format(old_email=old_email,
+                new_email=new_email),
+        abort=True)
     update_user(old_email=old_email, new_email=new_email)
 
 
@@ -56,11 +62,15 @@ def new_user(email, password):
 @usercli.command()
 def delete_user():
     email = click.prompt('Which user do you want to delete')
-    if click.confirm('Are you sure you want to delete {email}?'.format(email=email)):
+    if click.confirm(
+            'Are you sure you want to delete {email}?'.format(email=email)):
         try:
             User.get(User.email == email).delete_instance()
         except User.DoesNotExist:
-            click.echo('The user with email address {email} does not exist'.format(email=email))
+            click.echo(
+                'The user with email address {email} does not exist'.format(
+                    email=email))
+
 
 cli = click.CommandCollection(sources=[dbcli, usercli])
 

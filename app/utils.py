@@ -1,6 +1,8 @@
-from flask import session, redirect, url_for, abort
 from functools import wraps
+
 import markdown
+from flask import session, abort
+
 
 def login_required(f):
     @wraps(f)
@@ -11,6 +13,7 @@ def login_required(f):
 
     return inner
 
+
 def auth_user(user):
     session['logged_in'] = True
     session['user_id'] = user.id
@@ -19,6 +22,7 @@ def auth_user(user):
 def logout_user():
     session['logged_in'] = False
     session['user_id'] = None
+
 
 def filter_markdown(markdown_text):
     """Convert the markdown to html.

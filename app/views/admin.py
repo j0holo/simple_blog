@@ -1,11 +1,9 @@
-from flask import Blueprint, render_template, redirect, Markup, url_for
-from flask import abort, request, flash, session
-
-from datetime import datetime, timedelta
 import html2text
+from flask import Blueprint, render_template, redirect, Markup, url_for
+from flask import abort, request, flash
 
-from ..models import Post, User, db
 from ..forms import LoginForm
+from ..models import Post, User
 from ..utils import login_required, auth_user, logout_user, filter_markdown
 
 blue = Blueprint('admin', __name__, url_prefix='/admin')

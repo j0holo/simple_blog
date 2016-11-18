@@ -8,7 +8,7 @@
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     {% for message in messages %}
-                        <span>{{message}}</span>
+                        <span>{{ message }}</span>
                     {% endfor %}
                 {% endif %}
             {% endwith %}
@@ -31,12 +31,15 @@
                     </label>
 
                     <div id="tab-content1" class="tab-content">
-                        <input class="input-post-title" type="text" name="title" value="{{ title }}" required placeholder="Your title...">
+                        <input class="input-post-title" type="text" name="title"
+                               value="{{ title }}" required
+                               placeholder="Your title...">
                         <textarea class="input-post-textarea" id="textarea"
-                            name="markdown_text" rows="30" cols="40"
-                            placeholder="Start writing your post..."
-                            required
-                            onkeypress="insert_four_spaces(event)">{% if markdown -%}{{ markdown }}{% endif -%}
+                                  name="markdown_text" rows="30" cols="40"
+                                  placeholder="Start writing your post..."
+                                  required
+                                  onkeypress="insert_four_spaces(event)">{% if markdown -%}
+                            {{ markdown }}{% endif -%}
                         </textarea>
                     </div>
 
@@ -58,7 +61,8 @@
         <div class="row">
             <div class="twelve columns">
                 <input type="submit" name="submit" value="preview">
-                <input class="button-primary" type="submit" name="submit" value="post">
+                <input class="button-primary" type="submit" name="submit"
+                       value="post">
             </div>
         </div>
     </form>

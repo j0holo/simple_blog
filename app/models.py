@@ -1,8 +1,9 @@
 """Contains database models and helper functions."""
-from peewee import *
-from datetime import datetime
-import bcrypt
 import time
+from datetime import datetime
+
+import bcrypt
+from peewee import *
 
 from .seeder import posts
 
@@ -14,6 +15,7 @@ db = SqliteDatabase(DATABASE)
 
 class BaseModel(Model):
     """BaseModel class with the database connection object."""
+
     class Meta:
         database = db
 
@@ -113,7 +115,8 @@ class User(BaseModel):
         try:
             user = User.get(User.email == email)
             return bcrypt.hashpw(str.encode(password),
-                                 str.encode(user.pw_hash)) == str.encode(user.pw_hash)
+                                 str.encode(user.pw_hash)) == str.encode(
+                user.pw_hash)
         except User.DoesNotExist:
             return False
 

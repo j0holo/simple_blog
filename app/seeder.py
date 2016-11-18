@@ -4,9 +4,9 @@ This file contains data that is used to seed the database for testing.
 The random text from seeder.py was generated with http://randomtextgenerator.com/
 """
 posts = [
-	{
-		'title': "At as in understood an remarkably solicitude",
-		'text': """<p>Folly words widow one downs few age every seven. If miss part by fact he park
+    {
+        'title': "At as in understood an remarkably solicitude",
+        'text': """<p>Folly words widow one downs few age every seven. If miss part by fact he park
                     just shew. Discovered had get considered projection who favourable. Necessary up
                     knowledge it tolerably. Unwilling departure education is be dashwoods or an. Use
                     off agreeable law unwilling sir deficient curiosity instantly. Easy mind life
@@ -55,10 +55,10 @@ posts = [
                     shot. He concluded disposing provision by questions as situation. Its estimating
                     are motionless day sentiments end. Calling an imagine at forbade. At name no an
                     what like spot. Pressed my by do affixed he studied.</p>"""
-	},
-	{
-		'title': "Not far stuff she think the jokes",
-		'text': """<p>Offices parties lasting outward nothing age few resolve. Impression to
+    },
+    {
+        'title': "Not far stuff she think the jokes",
+        'text': """<p>Offices parties lasting outward nothing age few resolve. Impression to
                     discretion understood to we interested he excellence. Him remarkably use
                     projection collecting. Going about eat forty world has round miles. Attention
                     affection at my preferred offending shameless me if agreeable. Life lain held
@@ -104,5 +104,5 @@ posts = [
                     long in do we. Uncommonly no it announcing melancholy an in. Mirth learn it he
                     given. Secure shy favour length all twenty denote. He felicity no an at packages
                     answered opinions juvenile.</p>"""
-	}
+    }
 ]

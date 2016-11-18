@@ -1,11 +1,12 @@
+from datetime import datetime, timedelta
+from functools import wraps
+
+import html2text
+import markdown
 from flask import Flask, render_template, session, flash
 from flask import request, Markup, redirect, url_for, abort
-from models import Post, User, db
 from forms import LoginForm
-from functools import wraps
-from datetime import datetime, timedelta
-import markdown
-import html2text
+from models import Post, User, db
 
 app = Flask(__name__)
 app.config.from_object('config')

@@ -8,7 +8,7 @@
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     {% for message in messages %}
-                        <span>{{message}}</span>
+                        <span>{{ message }}</span>
                     {% endfor %}
                 {% endif %}
             {% endwith %}
@@ -16,19 +16,20 @@
     </div>
     {% if posts %}
         {% for post in posts %}
-        <div class="row">
-            <article class="twelve columns">
-                <a href="{{ url_for('post.single_post', post_id=post.id) }}"><h1>{{ post.title }}</h1></a>
-                <div class="post-details">
-                    <span>Posted at: {{ post.post_date }}</span>
-                    {% if post.last_edit %}
-                        <br>
-                        <span>Last edit: {{ post.last_edit }}</span>
-                    {% endif %}
-                </div>
-                {{ post.text|safe|truncate(256, True) }}
-            </article>
-        </div>
+            <div class="row">
+                <article class="twelve columns">
+                    <a href="{{ url_for('post.single_post', post_id=post.id) }}">
+                        <h1>{{ post.title }}</h1></a>
+                    <div class="post-details">
+                        <span>Posted at: {{ post.post_date }}</span>
+                        {% if post.last_edit %}
+                            <br>
+                            <span>Last edit: {{ post.last_edit }}</span>
+                        {% endif %}
+                    </div>
+                    {{ post.text|safe|truncate(256, True) }}
+                </article>
+            </div>
         {% endfor %}
     {% else %}
         <p>There are no posts</p>

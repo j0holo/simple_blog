@@ -1,5 +1,7 @@
-from flask import Flask, request
 from datetime import timedelta
+
+from flask import Flask
+
 from .models import db
 
 app = Flask(__name__)
@@ -17,4 +19,3 @@ from .views import admin, home, post
 app.register_blueprint(admin.blue)
 app.register_blueprint(home.blue)
 app.register_blueprint(post.blue)
-

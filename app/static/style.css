@@ -19,71 +19,74 @@
 /** Fonts **/
 
 @font-face {
-  font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?k8s29t');
-  src:  url('fonts/icomoon.eot?k8s29t#iefix') format('embedded-opentype'),
+    font-family: 'icomoon';
+    src: url('fonts/icomoon.eot?k8s29t');
+    src: url('fonts/icomoon.eot?k8s29t#iefix') format('embedded-opentype'),
     url('fonts/icomoon.ttf?k8s29t') format('truetype'),
     url('fonts/icomoon.woff?k8s29t') format('woff'),
     url('fonts/icomoon.svg?k8s29t#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
+    font-weight: normal;
+    font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
 }
 
 .icon-pencil:before {
-  content: "\e905";
+    content: "\e905";
 }
+
 .icon-eye:before {
-  content: "\e9ce";
+    content: "\e9ce";
 }
+
 .icon-eye-blocked:before {
-  content: "\e9d1";
+    content: "\e9d1";
 }
+
 .icon-cross:before {
-  content: "\ea0f";
+    content: "\ea0f";
 }
 
 /** General styles **/
 
 body {
-	font-size: 1.85em;
-	line-height: 1.7em;
+    font-size: 1.85em;
+    line-height: 1.7em;
     color: #333333;
 }
 
 a {
-	color: #3498db;
-	text-decoration: none;
+    color: #3498db;
+    text-decoration: none;
 }
 
 a:hover {
-	color: #1A75B1;
-	text-decoration: underline;
+    color: #1A75B1;
+    text-decoration: underline;
 }
 
 .float-right {
-	float: right;
+    float: right;
 }
 
 .float-left {
-	float: left;
+    float: left;
 }
 
 /** Banner **/
 
 .banner {
-	display: block;
-	padding-top: 1em;
-	text-align: center;
+    display: block;
+    padding-top: 1em;
+    text-align: center;
 }
 
 /** Nav **/
@@ -96,14 +99,14 @@ nav ul {
 }
 
 nav ul li {
-	display: inline-block;
+    display: inline-block;
 }
 
 nav li a {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-	font-size: 175%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 175%;
 }
 
 /** Forms **/
@@ -120,8 +123,8 @@ nav li a {
 /** Posts **/
 
 article {
-	margin: auto;
-	padding: 0 1em;
+    margin: auto;
+    padding: 0 1em;
 }
 
 article p {
@@ -130,9 +133,9 @@ article p {
 }
 
 .post-details {
-	margin-bottom: 0.5em;
-	font-style: italic;
-	font-size: 1em;
+    margin-bottom: 0.5em;
+    font-style: italic;
+    font-size: 1em;
 }
 
 /** Tabs **/
@@ -143,7 +146,7 @@ article p {
 }
 
 .tabs input[type=radio] {
-    display:none;
+    display: none;
 }
 
 .tabs label {
@@ -164,6 +167,7 @@ article p {
     color: #3498db;
     border-bottom: 4px solid #3498db;
 }
+
 .tab-content {
     display: none;
     width: 100%;
@@ -171,24 +175,25 @@ article p {
 }
 
 @keyframes scale {
-  0% {
-    transform: scale(0.9);
-    opacity: 0;
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
     }
-  50% {
-    transform: scale(1.01);
-    opacity: 0.5;
+    50% {
+        transform: scale(1.01);
+        opacity: 0.5;
     }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .tabs [id^="tab"]:checked + label {
     border-bottom: 4px solid #3498db;
     color: #3498db;
 }
+
 #tab1:checked ~ #tab-content1,
 #tab2:checked ~ #tab-content2 {
     display: block;

@@ -8,8 +8,9 @@ function insert_four_spaces(e) {
         var four_spaces = "    "; // this is stupid and error prone
         var cursorPos = textarea.selectionStart;
         var textBeforeCursor = textarea.value.substring(0, cursorPos);
-        var textAfterCursor = textarea.value.substring(textarea.selectionEnd,
-                                                       textarea.value.length
+        var textAfterCursor = textarea.value.substring(
+            textarea.selectionEnd,
+            textarea.value.length
         );
         textarea.value = textBeforeCursor + four_spaces + textAfterCursor;
         cursorPos = cursorPos + four_spaces.length;

@@ -8,7 +8,7 @@
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     {% for message in messages %}
-                        <span>{{message}}</span>
+                        <span>{{ message }}</span>
                     {% endfor %}
                 {% endif %}
             {% endwith %}
@@ -17,8 +17,8 @@
     {% if posts %}
         <div class="row">
             <div class="twelve columns">
-            <table class="overview">
-                <thead>
+                <table class="overview">
+                    <thead>
                     <tr>
                         <td>ID</td>
                         <td>Title</td>
@@ -26,39 +26,44 @@
                         <td>Visible</td>
                         <td></td>
                     </tr>
-                </thead>
-                <tbody>
-                {% for post in posts %}
-                    <tr>
-                        <td>{{ post.id }}</td>
-                        <td>
-                            <a href="{{ url_for('post.single_post', post_id=post.id) }}">
-                                <h6>{{ post.title }}</h6>
-                            </a>
-                        </td>
-                        <td>{{ post.post_date }}</td>
-                        <td>
-                            {% if post.visible%}
-                                <span class="icon-eye"></span>
-                            {% else %}
-                                <span class="icon-eye-blocked"></span>
-                            {% endif %}
-                        </td>
-                        <td>
-                            <a class="button" href="{{ url_for('.update_post', post_id=post.id) }}"><span class="icon-pencil"></span></a>
-                            <a class="button" href="{{ url_for('.switch_post_visibility', post_id=post.id) }}">
-                            {% if post.visible%}
-                                <span class="icon-eye-blocked"></span>
-                            {% else %}
-                                <span class="icon-eye"></span>
-                            {% endif %}
-                            </a>
-                            <a class="button" href="{{ url_for('.delete_post', post_id=post.id) }}"><span class="icon-cross"></span></a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for post in posts %}
+                        <tr>
+                            <td>{{ post.id }}</td>
+                            <td>
+                                <a href="{{ url_for('post.single_post', post_id=post.id) }}">
+                                    <h6>{{ post.title }}</h6>
+                                </a>
+                            </td>
+                            <td>{{ post.post_date }}</td>
+                            <td>
+                                {% if post.visible %}
+                                    <span class="icon-eye"></span>
+                                {% else %}
+                                    <span class="icon-eye-blocked"></span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a class="button"
+                                   href="{{ url_for('.update_post', post_id=post.id) }}"><span
+                                        class="icon-pencil"></span></a>
+                                <a class="button"
+                                   href="{{ url_for('.switch_post_visibility', post_id=post.id) }}">
+                                    {% if post.visible %}
+                                        <span class="icon-eye-blocked"></span>
+                                    {% else %}
+                                        <span class="icon-eye"></span>
+                                    {% endif %}
+                                </a>
+                                <a class="button"
+                                   href="{{ url_for('.delete_post', post_id=post.id) }}"><span
+                                        class="icon-cross"></span></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     {% else %}
