@@ -45,7 +45,7 @@ who created it of course i.e. *- John*.
 
 7. If you want to view the site with demo data execute `$ python setup_server.py database --populate`.
     **WARNING:** The `--populate` option will add two posts and a user. Don't use this in production.
-    You can use this user if you don't want to create your own. See app/models.py:populate_tables()
+    You can use this user for testing. See app/models.py:populate_tables()
 
 8. Create a new user with `$ python setup_server.py new_user`
 
@@ -65,6 +65,9 @@ insert four spaces in the editor. To dissable this in Opera go to
 Settings -> Preferences -> Advanced -> Keyboard setup -> "your selected setup"
 and search for "Homepage" it will show you a couple of shortcuts to the
 homepage. Delete the `Ctrl + Space` shortcut to remove the shortcut.
+
+As of version 12.16 (Ubuntu 16.04) Opera inserts 8 spaces instead of 4.
+So currently Opera is not working as intended with the shortcut.js.
 
 ## Contribute
 

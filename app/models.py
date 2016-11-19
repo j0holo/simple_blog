@@ -65,9 +65,13 @@ class Post(BaseModel):
 
 
 class Image(BaseModel):
-    # TODO: Add Image class to create_tables
+    """The image models for the database.
+
+    post_id - the primary key.
+    name - name of the image including the extension.
+    """
     post_id = ForeignKeyField(Post)
-    name = CharField(max_length=255)
+    name = CharField(max_length=255, unique=True)
 
 
 class User(BaseModel):
@@ -89,8 +93,8 @@ class User(BaseModel):
 
         :param email: email of the new user.
         :param password: password of the new user.
-        :return: True if the user has been created or False if the email address is
-            already taken.
+        :return: True if the user has been created or False if the email
+            address is already taken.
         """
         pw_hash = bcrypt.hashpw(str.encode(password), bcrypt.gensalt(14))
         try:
@@ -103,14 +107,15 @@ class User(BaseModel):
     def check_password(email, password):
         """Check the password entered by the user.
 
-        Currently there is a time difference between a user that does exist and one that doesn't. A malicious person
-        could use that as an advantage to get a hold of a valid email address. As I'm currently aware, there is no
+        Currently there is a time difference between a user that does exist and
+        one that doesn't. A malicious person could use that as an advantage to
+        get a hold of a valid email address. As I'm currently aware, there is no
         difference between a correct and a false password.
 
         :param email: email of the user
         :param password: password of the user
-        :return: True if the hashed password is equal to the hashed password stored in the database, else False if it
-            does not match.
+        :return: True if the hashed password is equal to the hashed password
+            stored in the database, else False if it does not match.
         """
         try:
             user = User.get(User.email == email)
