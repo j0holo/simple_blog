@@ -35,7 +35,9 @@ def change_email():
     old_email = click.prompt('Enter your old email address')
     if not User.get(User.email == old_email):
         click.echo(
-            'The email address {email} does not exist'.format(email=old_email))
+            'The email address {email} does not exist'.format(email=old_email)
+        )
+
     new_email = click.prompt('Enter your new email address')
     click.confirm(
         'You old email was {old_email}, your new email will be {new_email}'

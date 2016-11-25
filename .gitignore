@@ -94,3 +94,6 @@ ENV/
 
 # pycharm project config
 .idea/
+
+# Exclude images
+images/

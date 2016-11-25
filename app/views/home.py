@@ -19,7 +19,7 @@ def about():
 
 @blue.before_app_request
 def before_request():
-    session.permanent = True;
+    session.permanent = True
     db.connect()
 
 
