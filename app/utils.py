@@ -3,6 +3,7 @@ from functools import wraps
 import markdown
 from flask import session, abort
 
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 def login_required(f):
     @wraps(f)
@@ -22,6 +23,10 @@ def auth_user(user):
 def logout_user():
     session['logged_in'] = False
     session['user_id'] = None
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
 def filter_markdown(markdown_text):

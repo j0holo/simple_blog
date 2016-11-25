@@ -1,10 +1,14 @@
 import html2text
-from flask import Blueprint, render_template, redirect, Markup, url_for
-from flask import abort, request, flash
+import os
+from flask import Blueprint, render_template, redirect, Markup,\
+    url_for, abort, request, flash, send_from_directory
+from werkzeug.utils import secure_filename
 
 from ..forms import LoginForm
 from ..models import Post, User
-from ..utils import login_required, auth_user, logout_user, filter_markdown
+from ..utils import login_required, auth_user,\
+    logout_user, filter_markdown, allowed_file
+from app import app
 
 blue = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -170,3 +174,23 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home.index'))
+
+
+@blue.route("/upload", methods=['GET', 'POST'])
+def upload_image():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No image part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No image selected')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+    return render_template('admin/upload.html')
