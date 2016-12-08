@@ -14,6 +14,8 @@
 *	Tabs
 *
 *   Tables
+*
+*   Lists
 */
 
 /** Fonts **/
@@ -222,4 +224,15 @@ article p {
 
 .overview .button {
     text-decoration: none;
+}
+
+/** Lists **/
+#image-list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#image-list ul li {
+    display: inline-block;
 }

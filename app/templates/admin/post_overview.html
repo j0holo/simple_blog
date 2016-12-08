@@ -73,7 +73,8 @@
     <div class="row">
         <div class="twelve columns">
             {% if session['logged_in'] %}
-                <a href="{{ url_for('.add_post') }}">Add a new post</a>
+                <a href="{{ url_for('.add_post') }}">Add a new post</a>&#32;|&#32;
+                <a href="{{ url_for('.upload_image') }}">Upload an new image</a>
             {% endif %}
             <a class="float-right" href="{{ url_for('home.index') }}">Home</a>
         </div>

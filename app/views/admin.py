@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, redirect, Markup,\
 from werkzeug.utils import secure_filename
 
 from ..forms import LoginForm
-from ..models import Post, User
+from ..models import Post, User, Image
 from ..utils import login_required, auth_user,\
     logout_user, filter_markdown, allowed_file
 from app import app
@@ -178,6 +178,7 @@ def logout():
 
 @blue.route("/upload", methods=['GET', 'POST'])
 def upload_image():
+    filename = None
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -191,6 +192,17 @@ def upload_image():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            image, created = Image.get_or_create(name=filename)
+            if created:
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            else:
+                flash('Filename already exists.')
 
     return render_template('admin/upload.html')
+
+
+@blue.route("/imagelist/<int:page_number>")
+def return_image_list(page_number):
+    number_of_images = 15
+    images = Image.select().order_by(Image.id.asc()).paginate(page_number, number_of_images)
+    return render_template('admin/image_list.html', images=images)

@@ -67,6 +67,14 @@
         </div>
     </form>
 
+    <em>To use images in your post use the following format: ![Alt text](/static/images/&lt;your image&gt;)</em>
+    <div class="row">
+        <div class="twelve columns">
+            <script>getImages();</script>
+            <div id="image-list"></div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="twelve columns">
             <a href="{{ url_for('.posts') }}">Post Overview</a>

@@ -7,7 +7,6 @@ from peewee import *
 
 from .seeder import posts
 
-# TODO: Add more documentation to all files
 # FIXME: DATABASE const should be set in config.py, setup_server.py still uses a string.
 DATABASE = None
 db = SqliteDatabase(DATABASE)
@@ -70,8 +69,8 @@ class Image(BaseModel):
     post_id - the primary key.
     name - name of the image including the extension.
     """
-    post_id = ForeignKeyField(Post)
     name = CharField(max_length=255, unique=True)
+    alt_text = CharField(max_length=255)
 
 
 class User(BaseModel):
@@ -132,8 +131,8 @@ def create_tables():
 
     :return: True if tables where created successfully, otherwise False.
     """
-    db.drop_tables([Post, User], safe=True)
-    db.create_tables([Post, User])
+    db.drop_tables([Post, User, Image], safe=True)
+    db.create_tables([Post, User, Image])
     if User.table_exists() and Post.table_exists():
         return True
     else:

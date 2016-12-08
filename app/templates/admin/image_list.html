@@ -1,0 +1,14 @@
+<ul>
+    {% for image in images %}
+    <li class="three columns">
+        <div>
+            {{ image.name }}
+        </div>
+        <div>
+            {% set file_location = 'images/' + image.name %}
+            <img src="{{ url_for('static', filename=file_location) }}"
+                 width="240" height="135">
+        </div>
+    </li>
+    {% endfor %}
+</ul>
