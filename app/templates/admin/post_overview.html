@@ -46,19 +46,16 @@
                             </td>
                             <td>
                                 <a class="button"
-                                   href="{{ url_for('.update_post', post_id=post.id) }}"><span
-                                        class="icon-pencil"></span></a>
-                                <a class="button"
-                                   href="{{ url_for('.switch_post_visibility', post_id=post.id) }}">
+                                   href="{{ url_for('.update_post', post_id=post.id) }}"><span class="icon-pencil"></span></a>
+                                <a class="button" href="{{ url_for('.switch_post_visibility', post_id=post.id) }}">
                                     {% if post.visible %}
                                         <span class="icon-eye-blocked"></span>
                                     {% else %}
                                         <span class="icon-eye"></span>
                                     {% endif %}
                                 </a>
-                                <a class="button"
-                                   href="{{ url_for('.delete_post', post_id=post.id) }}"><span
-                                        class="icon-cross"></span></a>
+                                <a class="button" href="{{ url_for('.update_post_date', post_id=post.id) }}"><span class="icon-clock"></span></a>
+                                <a class="button" href="{{ url_for('.delete_post', post_id=post.id) }}"><span class="icon-cross"></span></a>
                             </td>
                         </tr>
                     {% endfor %}

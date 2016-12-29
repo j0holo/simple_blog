@@ -101,7 +101,7 @@ def update_post(post_id):
 
 @blue.route("/update-time/<int:post_id>")
 @login_required
-def update_time_post(post_id):
+def update_post_date(post_id):
     """Update the post_date of a post.
 
     Usefull when you are not finished with your post
