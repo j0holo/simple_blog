@@ -19,14 +19,8 @@
             <div class="row">
                 <article class="twelve columns">
                     <a href="{{ url_for('post.single_post', post_id=post.id) }}">
-                        <h1>{{ post.title }}</h1></a>
-                    <div class="post-details">
-                        <span>Posted at: {{ post.post_date }}</span>
-                        {% if post.last_edit %}
-                            <br>
-                            <span>Last edit: {{ post.last_edit }}</span>
-                        {% endif %}
-                    </div>
+                    <h2>{{ post.title }}</h2></a>
+                    <span class="post-details">Posted at: {{ post.post_date }}</span>
                     {{ post.text|safe|truncate(256, True) }}
                 </article>
             </div>
