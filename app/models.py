@@ -49,6 +49,25 @@ class Post(BaseModel):
             return None
 
     @staticmethod
+    def update_post_date(post_id):
+        """Update the time of the post.
+
+        Usefull when you are not finished with your post
+        and want to update the time when you make the post
+        visible.
+
+        :param post_id:
+        :return: True is the post does exist.
+        """
+        try:
+            post = Post.get(Post.id == post_id)
+            post.post_date = datetime.now().strftime('%Y-%m-%d')
+            post.save()
+            return True
+        except Post.DoesNotExist:
+            return False
+
+    @staticmethod
     def delete_post(post_id):
         """Delete an existing post.
 

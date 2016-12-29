@@ -99,20 +99,35 @@ def update_post(post_id):
                            post_id=post.id)
 
 
+@blue.route("/update-time/<int:post_id>")
+@login_required
+def update_time_post(post_id):
+    """Update the post_date of a post.
+
+    Usefull when you are not finished with your post
+    and want to update the time when you make the post
+    visible.
+
+    :param post_id: id of the post.
+    :return: redirect or 404
+    """
+    if Post.update_post_date(post_id):
+        return redirect(url_for('.posts'))
+    else:
+        abort(404)
+
 @blue.route("/delete/<int:post_id>")
 @login_required
 def delete_post(post_id):
     """Delete a post
 
     :param post_id: id of the post object
+    :return: redirect or 404
     """
-    try:
-        post = Post.get(Post.id == post_id)
-        post.delete_instance()
-    except Post.DoesNotExist:
+    if Post.delete_post(post_id):
+        return redirect(url_for('.posts'))
+    else:
         abort(404)
-
-    return redirect(url_for('.posts'))
 
 
 @blue.route("/visible/<int:post_id>")
