@@ -11,4 +11,10 @@
         </div>
     </li>
     {% endfor %}
+    <div class="twelve columns">
+        <button type="button" id="previous" onclick="updateNumber(this)">Previous</button>
+        <em id="page_number_id"></em>
+{#        {{ images.count() }}#}
+        <button type="button" id="next" onclick="updateNumber(this)">Next</button>
+    </div>
 </ul>

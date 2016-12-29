@@ -134,6 +134,10 @@ article p {
     max-width: 40em;
 }
 
+article img, .markdown-preview img {
+    max-width: 100%;
+}
+
 .post-details {
     margin-bottom: 0.5em;
     font-style: italic;

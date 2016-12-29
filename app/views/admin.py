@@ -1,13 +1,13 @@
 import html2text
+import markdown
 import os
 from flask import Blueprint, render_template, redirect, Markup,\
-    url_for, abort, request, flash, send_from_directory
+    url_for, abort, request, flash
 from werkzeug.utils import secure_filename
 
 from ..forms import LoginForm
 from ..models import Post, User, Image
-from ..utils import login_required, auth_user,\
-    logout_user, filter_markdown, allowed_file
+from ..utils import login_required, auth_user, logout_user, allowed_file, filter_markdown
 from app import app
 
 blue = Blueprint('admin', __name__, url_prefix='/admin')
@@ -23,50 +23,35 @@ def posts():
 @blue.route("/add", methods=['GET', 'POST'])
 @login_required
 def add_post():
-    # TODO: Add possibility to add and/or update images
-    """
-    Idea for uploading multiple images:
-    Upload multiple images an give each image an unique UUID which the user should use
-    Save the UUIDs in the database and reverence from the database
-    Will be difficult for the user, they need to hit preview or something like that
-    to see which UUID they get.
+    """Upload a new post to the website
 
-    Another option is to prefix the images with the id of the post. Don't think that is the
-    best idea, but better than the UUID option.
-
-    Both ideas need to prefix the download folder: ../static/<the_image.png> when they
-    get saved in the database.
-
-    Maybe another idea is to preview the images with javascript and when uploaded save the
-    images in static/<post_id/<image>. When changes are made to a post check if the
-    images are changed, if so delete the images that are no longer used and save the knew
-    ones. Maybe also delete the old images from the db that are no longer in use.
-
-    Sources:
-        https://stackoverflow.com/questions/14069421/show-an-image-preview-before-upload
-        http://www.html5rocks.com/en/tutorials/file/dndfiles/
+    :return: add_post.html
     """
     if request.method == 'POST':
         if request.form['submit'] == "preview":
             title = request.form['title']
-            markdown = request.form['markdown_text']
-            html = filter_markdown(markdown)
+            markdown_text = request.form['markdown_text']
+            html = filter_markdown(markdown_text)
 
             return render_template("admin/add_post.html",
                                    html=Markup(html),
-                                   markdown=markdown,
+                                   markdown=markdown_text,
                                    title=title)
         if request.form['submit'] == "post":
             title = request.form['title']
-            markdown = request.form['markdown_text']
+            markdown_text = request.form['markdown_text']
 
-            if title and markdown:
-                text = filter_markdown(markdown)
-                if Post.add_post(title, text):
+            if title and markdown_text:
+                html = filter_markdown(markdown_text)
+                if Post.add_post(title, html):
                     flash("Added post successfully")
                     return redirect(url_for('.posts'))
                 else:
-                    return "The title already exist"
+                    flash("The title already exist")
+                    return render_template("admin/add_post.html",
+                                           html=html,
+                                           markdown=markdown_text,
+                                           title=title)
     else:
         return render_template("admin/add_post.html")
 
@@ -84,20 +69,20 @@ def update_post(post_id):
         # TODO: Change request.form methods to WTForms (priority)
         if request.form['submit'] == "preview":
             title = request.form['title']
-            markdown = request.form['markdown_text']
-            html = filter_markdown(markdown)
+            markdown_text = request.form['markdown_text']
+            html = filter_markdown(markdown_text)
             return render_template("admin/update_post.html",
                                    title=title,
-                                   markdown=markdown,
+                                   markdown=markdown_text,
                                    html=Markup(html),
                                    post_id=post.id)
 
         if request.form['submit'] == "post":
             title = request.form['title']
-            markdown = request.form['markdown_text']
+            markdown_text = request.form['markdown_text']
 
-            if title and markdown:
-                text = filter_markdown(markdown)
+            if title and markdown_text:
+                text = filter_markdown(markdown_text)
                 post.title = title
                 post.text = text
                 post.save()
@@ -105,11 +90,11 @@ def update_post(post_id):
                 return redirect(url_for('.posts'))
 
     title = post.title
-    markdown = html2text.html2text(post.text)
-    html = filter_markdown(markdown)
+    markdown_text = html2text.html2text(post.text)
+    html = filter_markdown(markdown_text)
     return render_template("admin/update_post.html",
                            title=title,
-                           markdown=markdown,
+                           markdown=markdown_text,
                            html=Markup(html),
                            post_id=post.id)
 
@@ -178,6 +163,11 @@ def logout():
 
 @blue.route("/upload", methods=['GET', 'POST'])
 def upload_image():
+    """Upload a new image to the blog.
+
+    Upload a new image to the website and save the path
+    and alt text in the database.
+    """
     filename = None
     if request.method == 'POST':
         # check if the post request has the file part
@@ -195,7 +185,9 @@ def upload_image():
             image, created = Image.get_or_create(name=filename)
             if created:
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                flash('The image has been saved.')
             else:
+                #TODO: The images get overwritten instead of the warning.
                 flash('Filename already exists.')
 
     return render_template('admin/upload.html')
@@ -203,6 +195,11 @@ def upload_image():
 
 @blue.route("/imagelist/<int:page_number>")
 def return_image_list(page_number):
+    """Return a HTML page with 15 images of the paginated image model.
+
+    :param page_number: The requested page number
+    :return: image_list.html with 15 images of the requested page number
+    """
     number_of_images = 15
     images = Image.select().order_by(Image.id.asc()).paginate(page_number, number_of_images)
     return render_template('admin/image_list.html', images=images)

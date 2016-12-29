@@ -32,12 +32,8 @@ def allowed_file(filename):
 def filter_markdown(markdown_text):
     """Convert the markdown to html.
 
-    Also filters script tags from the html
+    And enable markdown extensions.
     """
+    #TODO: Enable table extension
     html = markdown.markdown(markdown_text)
-
-    while "<script>" in html:
-        html = html.replace("<script>", "")
-    while "</script>" in html:
-        html = html.replace("</script>", "")
     return html

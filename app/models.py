@@ -70,7 +70,6 @@ class Image(BaseModel):
     name - name of the image including the extension.
     """
     name = CharField(max_length=255, unique=True)
-    alt_text = CharField(max_length=255)
 
 
 class User(BaseModel):
