@@ -173,6 +173,7 @@ def login():
             logger.info('Admin logged in')
             return redirect(url_for('.posts'))
         else:
+            logger.warning('Wrong password entered')
             flash('Username or password do not match!')
 
     return render_template('admin/login.html', form=form)
