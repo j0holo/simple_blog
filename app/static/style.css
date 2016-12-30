@@ -112,6 +112,7 @@ a:hover {
 .logo {
     width: 100px;
     padding: 0.5em;
+    padding-bottom: 0;
     display: inline-block;
 }
 

@@ -1,14 +1,15 @@
-import html2text
-import markdown
 import os
+
+import html2text
 from flask import Blueprint, render_template, redirect, Markup,\
     url_for, abort, request, flash
 from werkzeug.utils import secure_filename
 
+from app import app
 from ..forms import LoginForm
 from ..models import Post, User, Image
 from ..utils import login_required, auth_user, logout_user, allowed_file, filter_markdown
-from app import app
+from ..site_logger import logger
 
 blue = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -45,6 +46,7 @@ def add_post():
                 html = filter_markdown(markdown_text)
                 if Post.add_post(title, html):
                     flash("Added post successfully")
+                    logger.info('A new post has been added: %s', title)
                     return redirect(url_for('.posts'))
                 else:
                     flash("The title already exist")
@@ -87,6 +89,7 @@ def update_post(post_id):
                 post.text = text
                 post.save()
                 flash("Post was updated")
+                logger.info('Post %d has been updated', post_id)
                 return redirect(url_for('.posts'))
 
     title = post.title
@@ -112,6 +115,7 @@ def update_post_date(post_id):
     :return: redirect or 404
     """
     if Post.update_post_date(post_id):
+        logger.info('post_date of %d has been updated', post_id)
         return redirect(url_for('.posts'))
     else:
         abort(404)
@@ -125,6 +129,7 @@ def delete_post(post_id):
     :return: redirect or 404
     """
     if Post.delete_post(post_id):
+        logger.warning('post %d has been deleted', post_id)
         return redirect(url_for('.posts'))
     else:
         abort(404)
@@ -163,6 +168,7 @@ def login():
             user = User.get(User.email == email)
             auth_user(user)
             flash('You are now logged in')
+            logger.info('Admin logged in')
             return redirect(url_for('.posts'))
         else:
             flash('Username or password do not match!')
@@ -173,10 +179,12 @@ def login():
 @blue.route("/logout")
 def logout():
     logout_user()
+    logger.info('Admin logged out')
     return redirect(url_for('home.index'))
 
 
 @blue.route("/upload", methods=['GET', 'POST'])
+@login_required
 def upload_image():
     """Upload a new image to the blog.
 
@@ -199,6 +207,7 @@ def upload_image():
             filename = secure_filename(file.filename)
             image, created = Image.get_or_create(name=filename)
             if created:
+                logger.info('Image %s had been uploaded', filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 flash('The image has been saved.')
             else:
@@ -209,6 +218,7 @@ def upload_image():
 
 
 @blue.route("/imagelist/<int:page_number>")
+@login_required
 def return_image_list(page_number):
     """Return a HTML page with 15 images of the paginated image model.
 
