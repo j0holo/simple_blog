@@ -70,6 +70,9 @@ body {
     font-size: 1.85em;
     line-height: 1.7em;
     color: #333333;
+    min-height: 100vh;
+    position: relative;
+    margin: 0;
 }
 
 a {
@@ -102,9 +105,13 @@ a:hover {
     color: #FFFFFF;
 }
 
+.logo-block {
+    display: inline-block;
+}
+
 .logo {
-    max-width: 100px;
-    padding-top: 2em;
+    width: 100px;
+    padding: 0.5em;
     display: inline-block;
 }
 
@@ -121,8 +128,10 @@ a:hover {
         display: none;
     }
 
-    .logo {
-        padding: 1em;
+    .logo-block {
+        display: flex;
+        align-content: center;
+        justify-content: center;
     }
 }
 
@@ -162,11 +171,12 @@ nav li a {
 
 article {
     margin: auto;
-    padding: 0 1em;
+    /*padding: 0 1em;*/
+    padding: 0;
 }
 
 article p {
-    margin: 1.5em;
+    /*margin: 1.5em;*/
     max-width: 40em;
 }
 
