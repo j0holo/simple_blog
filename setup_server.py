@@ -41,8 +41,8 @@ def change_email():
     new_email = click.prompt('Enter your new email address')
     click.confirm(
         'You old email was {old_email}, your new email will be {new_email}'
-        .format(old_email=old_email,
-                new_email=new_email),
+            .format(old_email=old_email,
+                    new_email=new_email),
         abort=True)
     update_user(old_email=old_email, new_email=new_email)
 

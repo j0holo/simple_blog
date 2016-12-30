@@ -1,20 +1,23 @@
 <ul>
     {% for image in images %}
-    <li class="three columns">
-        <div>
-            {{ image.name }}
-        </div>
-        <div>
-            {% set file_location = 'images/' + image.name %}
-            <img src="{{ url_for('static', filename=file_location) }}"
-                 width="240" height="135">
-        </div>
-    </li>
+        <li class="three columns">
+            <div>
+                {{ image.name }}
+            </div>
+            <div>
+                {% set file_location = 'images/' + image.name %}
+                <img src="{{ url_for('static', filename=file_location) }}"
+                     width="240" height="135">
+            </div>
+        </li>
     {% endfor %}
     <div class="twelve columns">
-        <button type="button" id="previous" onclick="updateNumber(this)">Previous</button>
+        <button type="button" id="previous" onclick="updateNumber(this)">
+            Previous
+        </button>
         <em id="page_number_id"></em>
-{#        {{ images.count() }}#}
-        <button type="button" id="next" onclick="updateNumber(this)">Next</button>
+        {#        {{ images.count() }}#}
+        <button type="button" id="next" onclick="updateNumber(this)">Next
+        </button>
     </div>
 </ul>

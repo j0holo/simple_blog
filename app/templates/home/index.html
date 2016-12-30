@@ -19,7 +19,7 @@
             <div class="row">
                 <article class="twelve columns">
                     <a href="{{ url_for('post.single_post', post_id=post.id) }}">
-                    <h2>{{ post.title }}</h2></a>
+                        <h2>{{ post.title }}</h2></a>
                     <span class="post-details">Posted at: {{ post.post_date }}</span>
                     {{ post.text|safe|truncate(256, True) }}
                 </article>

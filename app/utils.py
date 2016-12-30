@@ -5,6 +5,7 @@ from flask import session, abort
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
+
 def login_required(f):
     @wraps(f)
     def inner(*args, **kwargs):
@@ -34,6 +35,6 @@ def filter_markdown(markdown_text):
 
     And enable markdown extensions.
     """
-    #TODO: Enable table extension
+    # TODO: Enable table extension
     html = markdown.markdown(markdown_text)
     return html

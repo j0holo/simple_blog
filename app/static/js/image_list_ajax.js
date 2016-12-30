@@ -23,15 +23,15 @@ function getImages() {
 }
 
 function updateNumber(button) {
-  if (button.id === "previous") {
-      page_number -= 1;
-    if (page_number < 1) {
-      page_number = 1;
+    if (button.id === "previous") {
+        page_number -= 1;
+        if (page_number < 1) {
+            page_number = 1;
+        }
+    } else {
+        page_number += 1;
     }
-  } else {
-      page_number += 1;
-  }
-  getImages();
+    getImages();
 }
 
 // Doesn't work with AJAX but maybe use html data atribute.
@@ -43,5 +43,6 @@ function getPageNumber() {
     pageNumberElement.text("Page " + page_number + "/");
 }
 
-setTimeout(function() {}, 500);
+// Wait for the '#page_number_id' element to load.
+setTimeout(function () {}, 500);
 getPageNumber();

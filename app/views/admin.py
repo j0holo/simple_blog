@@ -1,15 +1,16 @@
 import os
 
 import html2text
-from flask import Blueprint, render_template, redirect, Markup,\
+from flask import Blueprint, render_template, redirect, Markup, \
     url_for, abort, request, flash
 from werkzeug.utils import secure_filename
 
 from app import app
 from ..forms import LoginForm
 from ..models import Post, User, Image
-from ..utils import login_required, auth_user, logout_user, allowed_file, filter_markdown
 from ..site_logger import logger
+from ..utils import login_required, auth_user, logout_user, allowed_file, \
+    filter_markdown
 
 blue = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -120,6 +121,7 @@ def update_post_date(post_id):
     else:
         abort(404)
 
+
 @blue.route("/delete/<int:post_id>")
 @login_required
 def delete_post(post_id):
@@ -211,7 +213,7 @@ def upload_image():
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 flash('The image has been saved.')
             else:
-                #TODO: The images get overwritten instead of the warning.
+                # TODO: The images get overwritten instead of the warning.
                 flash('Filename already exists.')
 
     return render_template('admin/upload.html')
@@ -226,5 +228,6 @@ def return_image_list(page_number):
     :return: image_list.html with 15 images of the requested page number
     """
     number_of_images = 15
-    images = Image.select().order_by(Image.id.asc()).paginate(page_number, number_of_images)
+    images = Image.select().order_by(Image.id.asc()).paginate(page_number,
+                                                              number_of_images)
     return render_template('admin/image_list.html', images=images)

@@ -1,6 +1,7 @@
-from datetime import timedelta
-from flask import Flask
 import logging
+from datetime import timedelta
+
+from flask import Flask
 
 from .models import db
 
