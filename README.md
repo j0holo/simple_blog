@@ -17,13 +17,15 @@ who created it of course i.e. *- John*.
 * Update existing posts
 * Markdown previewer when adding or updating posts
 * Date and time when the post was created or last edited
+* Adding/updating images
+* Deleting posts
+* Deleting users
 
 **Not yet implemented:**
 
-* Adding/updating images
 * A customisable About me page
-* Deleting posts
-* Deleting users
+* URL slugs
+* Post and Image pagination
 
 ## Installation (for demo purposes)
 
