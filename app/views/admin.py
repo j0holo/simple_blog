@@ -2,7 +2,7 @@ import os
 
 import html2text
 from flask import Blueprint, render_template, redirect, Markup, \
-    url_for, abort, request, flash
+    url_for, request, flash
 from werkzeug.utils import secure_filename
 from slugify import slugify
 
@@ -67,7 +67,7 @@ def update_post(post_id):
     try:
         post = Post.get(Post.id == post_id)
     except Post.DoesNotExist:
-        abort(404)
+        return render_template('page_not_found.html'), 404
 
     if request.method == 'POST':
         # TODO: Change request.form methods to WTForms (priority)
@@ -121,7 +121,7 @@ def update_post_date(post_id):
         logger.info('post_date of %d has been updated', post_id)
         return redirect(url_for('.posts'))
     else:
-        abort(404)
+        return render_template('page_not_found.html'), 404
 
 
 @blue.route("/delete/<int:post_id>")
@@ -136,7 +136,7 @@ def delete_post(post_id):
         logger.warning('post %d has been deleted', post_id)
         return redirect(url_for('.posts'))
     else:
-        abort(404)
+        return render_template('page_not_found.html'), 404
 
 
 @blue.route("/visible/<int:post_id>")
@@ -152,7 +152,7 @@ def switch_post_visibility(post_id):
     try:
         post = Post.get(Post.id == post_id)
     except Post.DoesNotExist:
-        abort(404)
+        return render_template('page_not_found.html'), 404
     if post.visible:
         post.visible = False
         post.save()

@@ -28,9 +28,9 @@ def index(page_number=1):
             next_page = page_number - 1
             previous_page = page_number + 1
         else:
-            abort(404)
+            return render_template('page_not_found.html'), 404
     else:
-        abort(404)
+        return render_template('page_not_found.html'), 404
 
     return render_template("home/index.html",
                            posts=posts,
@@ -42,6 +42,11 @@ def index(page_number=1):
 @blue.route("/about")
 def about():
     return render_template("home/about.html")
+
+
+@blue.errorhandler(404)
+def page_not_found(e):
+    render_template('page_not_found.html'), 404
 
 
 @blue.before_app_request

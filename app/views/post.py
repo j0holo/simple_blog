@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template
 from peewee import DoesNotExist
 from math import ceil
 
@@ -29,7 +29,7 @@ def posts(page_number=1):
             next_page = page_number - 1
             previous_page = None
     else:
-        abort(404)
+        return render_template('page_not_found.html'), 404
 
     return render_template("post/post_overview.html",
                            posts=posts,
@@ -44,5 +44,6 @@ def single_post(post_id, slug=None):
     try:
         post = Post.get((Post.id == post_id) & Post.visible)
     except DoesNotExist:
-        return abort(404)
+        return render_template('page_not_found.html'), 404
+        return render_template('page_not_found.html'), 404
     return render_template("post/post.html", post=post)

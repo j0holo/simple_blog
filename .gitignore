@@ -97,3 +97,6 @@ ENV/
 
 # Exclude images
 images/
+
+# ini files
+*.ini

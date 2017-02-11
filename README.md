@@ -5,9 +5,7 @@ as simple and straight forward as possible to setup and use.
 
 It is tailored towards single user blogs only. Although it's possible to
 create multiple users. It should be noted that each user can edit *every*
-post. If people are reading a posts they don't know who created or
-edited the post, you could add a note at the bottom of your posts
-who created it of course i.e. *- John*.
+post.
 
 ## Features
 
