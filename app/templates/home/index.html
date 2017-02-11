@@ -29,10 +29,25 @@
         <p>There are no posts</p>
     {% endif %}
 
+    <div class="row">
+        <div class="twelve columns">
+            {% if previous_page %}
+            <a class="float-left" href="{{ url_for('home.index', page_number=previous_page) }}">Previous</a>
+            {% endif %}
+            {% if next_page %}
+            <a class="float-right" href="{{ url_for('home.index', page_number=next_page) }}">Next</a>
+            {% endif %}
+        </div>
+    </div>
 
     <div class="row">
         <div class="twelve columns">
+            {% if session['logged_in'] %}
+                <a href="{{ url_for('admin.add_post') }}">Add a new post</a>
+            {% endif %}
+            {% if next_page %}
             <a class="float-right" href="{{ url_for('home.index') }}">Home</a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

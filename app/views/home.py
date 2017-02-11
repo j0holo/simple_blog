@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session, abort
+from math import ceil
 
 from ..models import Post, db
 
@@ -6,10 +7,36 @@ blue = Blueprint('home', __name__)
 
 
 @blue.route("/")
-def index():
-    posts = Post.select().where(Post.visible == True).order_by(
-        Post.post_date.desc())
-    return render_template("home/index.html", posts=posts)
+@blue.route("/<int:page_number>")
+def index(page_number=1):
+    number_of_posts_per_page = 10
+    number_of_total_posts = Post.select().where(Post.visible).count()
+    number_of_pages = ceil(number_of_total_posts / number_of_posts_per_page)
+    posts = Post.select().where(Post.visible).order_by(
+        Post.post_date.desc()).paginate(page_number, number_of_posts_per_page)
+    if number_of_pages <= 1:
+        next_page = None
+        previous_page = None
+    elif page_number == 1:
+        next_page = None
+        previous_page = page_number + 1
+    elif number_of_pages > 1:
+        if page_number == number_of_pages:
+            next_page = page_number - 1
+            previous_page = None
+        elif page_number < number_of_pages:
+            next_page = page_number - 1
+            previous_page = page_number + 1
+        else:
+            abort(404)
+    else:
+        abort(404)
+
+    return render_template("home/index.html",
+                           posts=posts,
+                           next_page=next_page,
+                           previous_page=previous_page,
+                           number_of_pages=number_of_pages)
 
 
 @blue.route("/about")

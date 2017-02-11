@@ -20,12 +20,14 @@ who created it of course i.e. *- John*.
 * Adding/updating images
 * Deleting posts
 * Deleting users
+* URL slugs
+* Image pagination
+* Post pagination
 
 **Not yet implemented:**
 
 * A customisable About me page
-* URL slugs
-* Post and Image pagination
+* Admin overview pagination
 
 ## Installation (for demo purposes)
 
