@@ -4,8 +4,10 @@ from datetime import datetime
 
 import bcrypt
 from peewee import *
+from slugify import slugify
 
 from .seeder import posts
+
 
 # FIXME: DATABASE const should be set in config.py, setup_server.py still uses a string.
 DATABASE = None
@@ -29,6 +31,7 @@ class Post(BaseModel):
     visible - if the post is visible on the website.
     """
     title = CharField(unique=True)
+    slug = CharField()
     text = CharField()
     post_date = DateField()
     visible = BooleanField(default=False)
@@ -43,6 +46,7 @@ class Post(BaseModel):
         """
         try:
             return Post.create(title=title,
+                               slug=slugify(title),
                                text=text,
                                post_date=datetime.now().strftime('%Y-%m-%d'))
         except IntegrityError:

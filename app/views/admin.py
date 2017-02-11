@@ -4,6 +4,7 @@ import html2text
 from flask import Blueprint, render_template, redirect, Markup, \
     url_for, abort, request, flash
 from werkzeug.utils import secure_filename
+from slugify import slugify
 
 from app import app
 from ..forms import LoginForm
@@ -87,6 +88,7 @@ def update_post(post_id):
             if title and markdown_text:
                 text = filter_markdown(markdown_text)
                 post.title = title
+                post.slug = slugify(title)
                 post.text = text
                 post.save()
                 flash("Post was updated")
@@ -226,9 +228,12 @@ def return_image_list(page_number):
     """Return a HTML page with 15 images of the paginated image model.
 
     :param page_number: The requested page number
-    :return: image_list.html with 15 images of the requested page number
+    :return: image_list.html with n amount of images of the requested page number
     """
-    number_of_images = 15
+    number_of_images = 3
+    total_image_count = Image.select().count()
+    amount_of_pages = total_image_count / number_of_images
     images = Image.select().order_by(Image.id.asc()).paginate(page_number,
                                                               number_of_images)
-    return render_template('admin/image_list.html', images=images)
+    return render_template('admin/image_list.html', images=images,
+                           amount_of_pages=amount_of_pages)

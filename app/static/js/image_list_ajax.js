@@ -23,26 +23,24 @@ function getImages() {
 }
 
 function updateNumber(button) {
+    var previousElement = document.getElementById('previous');
+    var amount_of_pages = previousElement.dataset.pagenumbers;
     if (button.id === "previous") {
         page_number -= 1;
         if (page_number < 1) {
             page_number = 1;
         }
     } else {
-        page_number += 1;
+        if (amount_of_pages > page_number) {
+            page_number += 1;
+        }
     }
     getImages();
+    getPageNumber(amount_of_pages);
 }
 
 // Doesn't work with AJAX but maybe use html data atribute.
-function getPageNumber() {
-    var pageNumberElement = document.getElementById("page_number_id");
-    if (pageNumberElement === null) {
-        return;
-    }
-    pageNumberElement.text("Page " + page_number + "/");
+function getPageNumber(amount_of_pages) {
+    var page_number_idElement = document.getElementById('page_number_id');
+    page_number_idElement.innerHTML = page_number + " / " + amount_of_pages;
 }
-
-// Wait for the '#page_number_id' element to load.
-setTimeout(function () {}, 500);
-getPageNumber();

@@ -14,7 +14,8 @@ def posts():
 
 
 @blue.route("/post/<int:post_id>")
-def single_post(post_id):
+@blue.route("/post/<int:post_id>/<string:slug>")
+def single_post(post_id, slug=None):
     try:
         post = Post.get((Post.id == post_id) & Post.visible)
     except DoesNotExist:

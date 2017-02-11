@@ -1,4 +1,5 @@
 from functools import wraps
+import re
 
 import markdown
 from flask import session, abort
