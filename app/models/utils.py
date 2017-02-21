@@ -2,7 +2,7 @@ from app.seeder import posts
 from .image import Image
 from .post import Post
 from .user import User
-from models import db
+from . import db
 import time
 
 
@@ -29,9 +29,5 @@ def populate_tables():
     db.connect()
     User.add_user("invalid@invalid.com", "devpassword")
     Post.add_post(posts[0]['title'], posts[0]['text'])
-
-    # Sleep is used to give post a different time stamp
-    # that is also visible in the blog posts.
-    time.sleep(3)
     Post.add_post(posts[1]['title'], posts[1]['text'])
     db.close()

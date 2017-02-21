@@ -1,7 +1,9 @@
 import click
 
-from app.models import create_tables, create_user, update_user, populate_tables, \
-    User, db
+from app.models import db
+from app import app
+from app.models.utils import create_tables, populate_tables
+from app.models.user import User
 
 
 @click.group()
@@ -44,21 +46,21 @@ def change_email():
             .format(old_email=old_email,
                     new_email=new_email),
         abort=True)
-    update_user(old_email=old_email, new_email=new_email)
+    User.update_user(old_email=old_email, new_email=new_email)
 
 
 @usercli.command()
 @click.option('--email', prompt='Your email address')
 @click.password_option()
 def change_password(email, password):
-    update_user(email, password=password)
+    User.update_user(email, password=password)
 
 
 @usercli.command()
 @click.option('--email', prompt='Enter your new email address')
 @click.password_option()
 def new_user(email, password):
-    create_user(email, password)
+    User.create_user(email, password)
 
 
 @usercli.command()
@@ -77,5 +79,5 @@ def delete_user():
 cli = click.CommandCollection(sources=[dbcli, usercli])
 
 if __name__ == "__main__":
-    db.init('app/blog.db')
+    db.init(app.config['DATABASE'])
     cli()
