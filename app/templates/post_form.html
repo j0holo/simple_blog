@@ -1,0 +1,49 @@
+        <div class="row">
+            <div class="twelve columns">
+                <div class="tabs">
+
+                    <input type="radio" checked name="tabs" id="tab1">
+                    <label for="tab1">
+                        <span>Markdown</span>
+                    </label>
+
+                    <input type="radio" name="tabs" id="tab2">
+                    <label for="tab2">
+                        <span>HTML</span>
+                    </label>
+
+                    <div id="tab-content1" class="tab-content">
+                        <input class="input-post-title" type="text" name="title"
+                               value="{{ title }}" required
+                               placeholder="Your title...">
+                        <textarea class="input-post-textarea" id="textarea"
+                                  name="markdown_text" rows="30" cols="40"
+                                  placeholder="Start writing your post..."
+                                  required
+                                  onkeypress="insert_four_spaces(event)">{% if markdown -%}
+                            {{ markdown }}{% endif -%}
+                        </textarea>
+                    </div>
+
+                    <div id="tab-content2" class="tab-content">
+                        {% if title %}
+                            <h2>{{ title }}</h2>
+                        {% endif %}
+                        {% if html %}
+                            <div class="markdown-preview">
+                                {{ html }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="twelve columns">
+                <input type="submit" name="submit" value="preview">
+                <input class="button-primary" type="submit" name="submit"
+                       value="post">
+            </div>
+        </div>

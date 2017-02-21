@@ -72,7 +72,6 @@ def update_post(post_id):
         return render_template('page_not_found.html'), 404
 
     if request.method == 'POST':
-        # TODO: Change request.form methods to WTForms (priority)
         if request.form['submit'] == "preview":
             title = request.form['title']
             markdown_text = request.form['markdown_text']

@@ -29,6 +29,7 @@ def logout_user():
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+
 def filter_markdown(markdown_text):
     """Convert the markdown to html.
 

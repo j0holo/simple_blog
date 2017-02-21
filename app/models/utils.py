@@ -3,7 +3,6 @@ from .image import Image
 from .post import Post
 from .user import User
 from . import db
-import time
 
 
 # Helper functions
