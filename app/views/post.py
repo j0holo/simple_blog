@@ -2,7 +2,7 @@ from flask import Blueprint, render_template
 from peewee import DoesNotExist
 from math import ceil
 
-from ..models import Post
+from ..models.post import Post
 
 blue = Blueprint('post', __name__)
 
@@ -42,8 +42,10 @@ def posts(page_number=1):
 @blue.route("/post/<int:post_id>/<string:slug>")
 def single_post(post_id, slug=None):
     try:
-        post = Post.get((Post.id == post_id) & Post.visible)
+        if slug is not None:
+            post = Post.get((Post.id == post_id) & Post.visible & Post.slug == slug)
+        else:
+            post = Post.get((Post.id == post_id) & Post.visible)
     except DoesNotExist:
-        return render_template('page_not_found.html'), 404
         return render_template('page_not_found.html'), 404
     return render_template("post/post.html", post=post)

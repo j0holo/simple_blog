@@ -8,7 +8,9 @@ from slugify import slugify
 
 from app import app
 from ..forms import LoginForm
-from ..models import Post, User, Image
+from ..models.image import Image
+from ..models.user import User
+from ..models.post import Post
 from ..site_logger import logger
 from ..utils import login_required, auth_user, logout_user, allowed_file, \
     filter_markdown

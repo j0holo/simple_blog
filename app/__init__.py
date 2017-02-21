@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from flask import Flask
 
-from .models import db
+from app.models import db
 
 app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
@@ -26,3 +26,6 @@ from .views import admin, home, post
 app.register_blueprint(admin.blue)
 app.register_blueprint(home.blue)
 app.register_blueprint(post.blue)
+
+if __name__ == "__main__":
+    app.run()

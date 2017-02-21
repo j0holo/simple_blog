@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, session, abort
+from flask import Blueprint, render_template, session
 from math import ceil
 
-from ..models import Post, db
+from ..models.baseModel import db
+from ..models.post import Post
 
 blue = Blueprint('home', __name__)
 
