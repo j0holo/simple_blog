@@ -218,7 +218,6 @@ def upload_image():
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 flash('The image has been saved.')
             else:
-                # TODO: The images get overwritten instead of the warning.
                 flash('Filename already exists.')
 
     return render_template('admin/upload.html')

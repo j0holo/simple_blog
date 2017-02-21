@@ -1,5 +1,4 @@
 from functools import wraps
-import re
 
 import markdown
 from flask import session, abort
@@ -30,12 +29,10 @@ def logout_user():
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
-
 def filter_markdown(markdown_text):
     """Convert the markdown to html.
 
     And enable markdown extensions.
     """
-    # TODO: Enable table extension
-    html = markdown.markdown(markdown_text)
+    html = markdown.markdown(markdown_text, extensions=['markdown.extensions.tables'])
     return html
